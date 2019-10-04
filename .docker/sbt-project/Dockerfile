@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y gnupg2 \
     && apt-get update && apt-get install -y sbt \
     && apt-get install -y nodejs npm \
     && apt-get install fakeroot \
-    && ls -al /app/
+    && ls -al /app/ \
+    && cd /app \
+    && sbt run
 
 CMD ["ls", "-al", "/app/"]
