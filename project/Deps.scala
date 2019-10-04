@@ -1,12 +1,8 @@
 import sbt._
 
 object Deps {
-  val hedgehogVersion = "4e1cd9e2901be2a0397b5429f227bce71f75fb7f"
-  val hedgehogRepo =
-    Resolver.url(
-      "bintray-scala-hedgehog",
-      url("https://dl.bintray.com/hedgehogqa/scala-hedgehog")
-    )(Resolver.ivyStylePatterns)
+  val hedgehogVersion = "d0d76f6df378614294d4c78be440a558e9bd3e85"
+  val hedgehogRepo = "hedgehog-repor" at "https://dl.bintray.com/hedgehogqa/scala-hedgehog"
 
   val hedgehogLibs: Seq[ModuleID] = Seq(
       "hedgehog" %% "hedgehog-core" % hedgehogVersion % Test
