@@ -9,10 +9,11 @@ services:
 
   app-test:
     container_name: sbt-project
-    build:
-      context: ../
-      dockerfile: .docker/sbt-project/Dockerfile
+    build: "sbt-project"
+# Uncomment if access to the project root is required in sbt-project/Dockerfile build
+#      context: ../
+#      dockerfile: .docker/sbt-project/Dockerfile
     volumes:
-      - .:/app
+      - ../:/app
     depends_on:
       - web

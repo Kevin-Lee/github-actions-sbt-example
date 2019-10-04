@@ -10,9 +10,9 @@ ThisBuild / developers   := List(
     )
 
 lazy val sbtGitHubActionsExample = (project in file("."))
-  .enablePlugins(DevOopsScalaPlugin, DevOopsGitReleasePlugin)
+  .enablePlugins(DevOopsScalaPlugin)
   .settings(
-    name := "sbt-github-actions-example"
+    name := "github-actions-sbt-example"
   , description  := "GitHub Actions for sbt project"
   , resolvers ++= Seq(
         Resolver.sonatypeRepo("releases")

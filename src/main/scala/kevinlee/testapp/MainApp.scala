@@ -17,7 +17,7 @@ object MainApp extends App {
     ()
   }
 
-  val connection = new URL("http://localhost:8000/get").openConnection()
+  val connection = new URL("http://web:8000/get").openConnection()
   val input = connection.getInputStream
   val output = new ByteArrayOutputStream()
   try {
