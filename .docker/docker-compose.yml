@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    container_name: httpbin
+    build: "docker/httpbin"
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+
+  app-test:
+    container_name: sbt-project
+    build: "docker/sbt-project"
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+    volumes:
+      - .:/app
+    depends_on:
+      - web
