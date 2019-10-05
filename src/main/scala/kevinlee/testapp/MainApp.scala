@@ -1,33 +1,39 @@
 package kevinlee.testapp
 
-import java.io.{ByteArrayOutputStream, InputStream, OutputStream}
-import java.net.URL
+import java.io.ByteArrayOutputStream
+import java.net.{HttpURLConnection, URL, URLConnection}
 
-object MainApp extends App {
+import SideEffects._
+import javax.net.ssl.HttpsURLConnection
 
-  def transfer(bufferSize: Int, inputStream: InputStream, outputStream: OutputStream): Unit = {
-    var read = 0L
-    val buff = new Array[Byte](bufferSize)
-    var n = inputStream.read(buff)
-    while (n > 0) {
-      outputStream.write(buff, 0, n)
-      read += n
-      n = inputStream.read(buff)
+import scala.util.{Failure, Success, Try}
+
+object MainApp {
+
+  final case class Response(status: Int, body: String)
+
+  def get(connection: URLConnection): Either[String, Response] = Try {
+    val status = connection match {
+      case h: HttpsURLConnection =>
+        h.getResponseCode
+      case h: HttpURLConnection =>
+        h.getResponseCode
     }
-    ()
+    val result = tryWith(connection.getInputStream) { input =>
+      tryWith(new ByteArrayOutputStream()) { output =>
+        transfer(1024, input, output)
+        new String(output.toByteArray)
+      }
+    }
+    Response(status, result)
+  } match {
+    case Failure(exception) =>
+      Left(exception.getMessage)
+    case Success(response) =>
+      Right(response)
   }
 
-  val connection = new URL("http://web:8000/get").openConnection()
-  val input = connection.getInputStream
-  val output = new ByteArrayOutputStream()
-  try {
-    transfer(1024, input, output)
-  } finally {
-    output.close()
-    input.close()
+  def main(args: Array[String]): Unit = {
+    println(get(new URL("http://web:8000/get").openConnection()))
   }
-
-  println(
-    new String(output.toByteArray)
-  )
 }

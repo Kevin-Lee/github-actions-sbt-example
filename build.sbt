@@ -19,7 +19,7 @@ lazy val sbtGitHubActionsExample = (project in file("."))
       , Deps.hedgehogRepo
       )
   , libraryDependencies ++= Deps.hedgehogLibs
-//  , testFrameworks ++= Seq(TestFramework("hedgehog.sbt.Framework"))
+  , testFrameworks ++= Seq(TestFramework("hedgehog.sbt.Framework"))
 
   /* Bintray { */
 //  , bintrayPackageLabels := Seq("Scala", "sbt", "GitHub", "GitHub Actions")
@@ -29,12 +29,15 @@ lazy val sbtGitHubActionsExample = (project in file("."))
 
 
   /* Coveralls { */
-//  , coverageHighlighting := (CrossVersion.partialVersion(scalaVersion.value) match {
-//    case Some((2, 10)) =>
-//      false
-//    case _ =>
-//      true
-//  })
-//  , coverallsTokenFile := Option(s"""${Path.userHome.absolutePath}/.coveralls-credentials""")
+  /* Don't for get to add COVERALLS_REPO_TOKEN in your project's secrets
+   * Project => Settings => Secrets
+   * https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables
+   */
+  , coverageHighlighting := (CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((2, 10)) =>
+      false
+    case _ =>
+      true
+  })
   /* } Coveralls */
 )
