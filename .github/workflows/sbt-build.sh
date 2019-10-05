@@ -18,7 +18,7 @@ else
   then
     sbt -J-Xmx2048m "; ++ ${scala_version}!; clean; coverage; test; coverageReport; coverageAggregate"
     sbt -J-Xmx2048m "; ++ ${scala_version}!; coveralls"
-    sbt -J-Xmx2048m "; ++ ${scala_version}!; clean packagedArtifacts"
+    sbt -J-Xmx2048m "; ++ ${scala_version}!; clean; packagedArtifacts"
   else
     sbt -J-Xmx2048m "; ++ ${scala_version}!; clean; coverage; test; coverageReport; coverageAggregate; package"
     sbt -J-Xmx2048m "; ++ ${scala_version}!; coveralls"

@@ -5,9 +5,7 @@ on: [push]
 jobs:
 
   build_run:
- 
     runs-on: ubuntu-latest
- 
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker compose
@@ -17,10 +15,8 @@ jobs:
     - name: Run the app
       run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} app-test /app/.github/workflows/sbt-run.sh
 
-  build_cross_versions:
-
+  build_scala2_10:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker compose
@@ -29,9 +25,38 @@ jobs:
       run: docker-compose -f .docker/docker-compose.yml up -d web
     - name: Build for Scala 2.10
       run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} app-test /app/.github/workflows/sbt-build-simple.sh 2.10.7
+
+  build_scala2_11:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker compose
+      run: docker-compose -f .docker/docker-compose.yml build
+    - name: Run the Docker compose
+      run: docker-compose -f .docker/docker-compose.yml up -d web
     - name: Build for Scala 2.11
       run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} app-test /app/.github/workflows/sbt-build-simple.sh 2.11.12
+
+  build_scala2_12:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker compose
+      run: docker-compose -f .docker/docker-compose.yml build
+    - name: Run the Docker compose
+      run: docker-compose -f .docker/docker-compose.yml up -d web
     - name: Build for Scala 2.12
       run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} app-test /app/.github/workflows/sbt-build-simple.sh 2.12.10
+
+  build_scala2_13:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker compose
+      run: docker-compose -f .docker/docker-compose.yml build
+    - name: Run the Docker compose
+      run: docker-compose -f .docker/docker-compose.yml up -d web
     - name: Build for Scala 2.13
-      run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} app-test /app/.github/workflows/sbt-build.sh 2.13.0
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} -e COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN} app-test /app/.github/workflows/sbt-build.sh 2.13.0
