@@ -14,6 +14,7 @@ else
   echo ""
   cd /app
   CURRENT_BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+  export CI_BRANCH=$CURRENT_BRANCH_NAME
   if [[ "$CURRENT_BRANCH_NAME" == "master" || "$CURRENT_BRANCH_NAME" == "release" ]]
   then
     sbt -J-Xmx2048m "; ++ ${scala_version}!; clean; coverage; test; coverageReport; coverageAggregate"
