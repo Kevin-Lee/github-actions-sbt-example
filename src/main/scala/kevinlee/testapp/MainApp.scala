@@ -34,6 +34,8 @@ object MainApp {
   }
 
   def main(args: Array[String]): Unit = {
-    println(get(new URL("http://web:8000/get").openConnection()))
+    val isDocker = sys.env.get("IS_DOCKER").fold(false)(_.toBoolean)
+    val hostname = if (isDocker) "web" else "localhost"
+    println(get(new URL(s"http://$hostname:8000/get").openConnection()))
   }
 }

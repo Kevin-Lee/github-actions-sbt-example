@@ -15,7 +15,9 @@ object MainAppSpec extends Properties {
   )
 
   def testGet: Result = {
-    val actual = MainApp.get(new URL("http://web:8000/get").openConnection())
+    val isDocker = sys.env.get("IS_DOCKER").fold(false)(_.toBoolean)
+    val hostname = if (isDocker) "web" else "localhost"
+    val actual = MainApp.get(new URL(s"http://$hostname:8000/get").openConnection())
     actual match {
       case Right(response) =>
         response.status ==== 200
