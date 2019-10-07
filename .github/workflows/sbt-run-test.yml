@@ -1,0 +1,24 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      web:
+        image: kennethreitz/httpbin
+        ports:
+          - "8000:80"
+          - "8443:443"
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run sbt clean run
+      run: sbt clean run
+    - name: Run test
+      run: |
+        echo "Run] sbt clean test"
+        sbt clean test
