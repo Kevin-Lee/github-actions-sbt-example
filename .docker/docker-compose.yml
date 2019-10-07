@@ -4,8 +4,10 @@ services:
     container_name: httpbin
     image: kennethreitz/httpbin
     ports:
-      - "8000:80"
-      - "8443:443"
+      - "8000:8000"
+      - "8443:8443"
+    command:
+      - gunicorn  -b 0.0.0.0:8000 -b 0.0.0.0:8443 httpbin:app -k gevent
 
   app-test:
     container_name: sbt-project
