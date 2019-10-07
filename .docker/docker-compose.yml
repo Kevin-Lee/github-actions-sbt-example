@@ -13,7 +13,7 @@ services:
 
   app-test:
     container_name: sbt-project
-    build: "sbt-project"
+    image: k3vin/sbt-java8
 # Uncomment if access to the project root is required in sbt-project/Dockerfile build
 #      context: ../
 #      dockerfile: .docker/sbt-project/Dockerfile
