@@ -22,6 +22,8 @@ jobs:
     - name: Run sbt clean run
       run: sbt clean run
     - name: GitHub Release
+      env:
+        CI_BRANCH: ${GITHUB_REF#refs/heads/}
       run: |
         echo "Run] sbt test"
         sbt -J-Xmx2048m "; clean; coverage; test; coverageReport; coverageAggregate"
