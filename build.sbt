@@ -1,5 +1,4 @@
 import ProjectInfo._
-import org.scoverage.coveralls.Imports.CoverallsKeys.coverallsTokenFile
 
 ThisBuild / scalaVersion     := ProjectScalaVersion
 ThisBuild / version          := ProjectVersion
@@ -10,7 +9,7 @@ ThisBuild / developers   := List(
     )
 
 lazy val sbtGitHubActionsExample = (project in file("."))
-  .enablePlugins(DevOopsScalaPlugin)
+  .enablePlugins(DevOopsScalaPlugin, DevOopsGitReleasePlugin)
   .settings(
     name := "github-actions-sbt-example"
   , description  := "GitHub Actions for sbt project"
@@ -22,9 +21,9 @@ lazy val sbtGitHubActionsExample = (project in file("."))
   , testFrameworks ++= Seq(TestFramework("hedgehog.sbt.Framework"))
 
   /* Bintray { */
-//  , bintrayPackageLabels := Seq("Scala", "sbt", "GitHub", "GitHub Actions")
-//  , bintrayVcsUrl := Some("""git@github.com:Kevin-Lee/sbt-github-actions-example.git""")
-//  , licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+  , bintrayPackageLabels := Seq("Scala", "sbt", "GitHub", "GitHub Actions")
+  , bintrayVcsUrl := Some("""git@github.com:Kevin-Lee/github-actions-sbt-example.git""")
+  , licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   /* } Bintray */
 
 
