@@ -1,4 +1,4 @@
-# sbt-github-actions-example
+# github-actions-sbt-example
 
 [![Actions Status](https://github.com/Kevin-Lee/github-actions-sbt-example/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/Kevin-Lee/github-actions-sbt-example/actions)
 [![Actions Status](https://github.com/Kevin-Lee/github-actions-sbt-example/workflows/CI/badge.svg)](https://github.com/Kevin-Lee/github-actions-sbt-example/actions)
