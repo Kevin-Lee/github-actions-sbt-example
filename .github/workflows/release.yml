@@ -19,14 +19,13 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run sbt clean run
-      run: sbt clean run
     - name: GitHub Release
       env:
         CI_BRANCH: ${GITHUB_REF#refs/heads/}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
         BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "Run] sbt test"
         sbt -J-Xmx2048m "; clean; coverage; test; coverageReport; coverageAggregate"
