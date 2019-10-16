@@ -27,9 +27,5 @@ jobs:
         BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_AUTH_TOKEN }}
       run: |
-        echo "Run] sbt test"
-        sbt -J-Xmx2048m "; clean; coverage; test; coverageReport; coverageAggregate"
-        sbt -J-Xmx2048m "; coveralls"
-        echo "Run] sbt publish and release"
-        sbt -J-Xmx2048m "; clean; +test; +publish"
-        sbt -J-Xmx2048m "; clean; +packagedArtifacts; gitHubRelease"
+        echo "Run] sbt GitHub release"
+        sbt -J-Xmx2048m "; clean; +test; +packagedArtifacts; +publish; gitHubRelease"
