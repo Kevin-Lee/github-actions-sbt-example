@@ -16,18 +16,6 @@ jobs:
     - name: Run the app
       run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} -e IS_DOCKER=true app-test /app/.github/workflows/sbt-run.sh
 
-  build_scala2_10:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-# Uncomment these two lines for local Docker build instead of using the image from Docker Hub
-#    - name: Build the Docker compose
-#      run: docker-compose -f .docker/docker-compose.yml build
-    - name: Run the Docker compose
-      run: docker-compose -f .docker/docker-compose.yml up -d web
-    - name: Build for Scala 2.10
-      run: docker-compose -f .docker/docker-compose.yml run -e GITHUB_REF=${GITHUB_REF} -e IS_DOCKER=true app-test /app/.github/workflows/sbt-build-simple.sh 2.10.7
-
   build_scala2_11:
     runs-on: ubuntu-latest
     steps:
