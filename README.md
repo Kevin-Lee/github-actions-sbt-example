@@ -14,8 +14,10 @@
 ├── .github
 │  └── workflows
 │     ├── dockerimage.yml
+│     ├── publish-github-pages.yml
 │     ├── sbt-build-simple.sh
 │     ├── sbt-build.sh
 │     ├── sbt-run-test.yml
 │     └── sbt-run.sh
 ```
+`publish-github-pages.yml` publishes docs to GitHub Pages at [https://kevin-lee.github.io/github-actions-sbt-example](https://kevin-lee.github.io/github-actions-sbt-example).
