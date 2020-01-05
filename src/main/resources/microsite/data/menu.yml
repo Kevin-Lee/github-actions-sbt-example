@@ -1,0 +1,10 @@
+options:
+  - title: Index Page
+    url: docs/index
+    section: intro
+
+  - title: The First Page
+    url: docs/first
+
+  - title: The Second Page
+    url: docs/second
