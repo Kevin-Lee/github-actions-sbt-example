@@ -15,6 +15,15 @@ ThisBuild / scmInfo :=
 ThisBuild / homepage := Some(new URL("https://github.com/Kevin-Lee/github-actions-sbt-example"))
 ThisBuild / crossVersion := CrossVersion.full
 
+val hedgehogVersion = "d0d76f6df378614294d4c78be440a558e9bd3e85"
+val hedgehogRepo = "hedgehog-repor" at "https://dl.bintray.com/hedgehogqa/scala-hedgehog"
+
+val hedgehogLibs: Seq[ModuleID] = Seq(
+  "hedgehog" %% "hedgehog-core" % hedgehogVersion % Test
+  , "hedgehog" %% "hedgehog-runner" % hedgehogVersion % Test
+  , "hedgehog" %% "hedgehog-sbt" % hedgehogVersion % Test
+)
+
 lazy val cats: ModuleID = "org.typelevel" %% "cats-core" % "2.0.0"
 lazy val catsEffect: ModuleID = "org.typelevel" %% "cats-effect" % "2.0.0"
 
@@ -26,9 +35,9 @@ lazy val sbtGitHubActionsExample = (project in file("."))
   , addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
   , resolvers ++= Seq(
         Resolver.sonatypeRepo("releases")
-      , Deps.hedgehogRepo
+      , hedgehogRepo
       )
-  , libraryDependencies ++= Deps.hedgehogLibs ++ Seq(cats, catsEffect)
+  , libraryDependencies ++= hedgehogLibs ++ Seq(cats, catsEffect)
   , testFrameworks ++= Seq(TestFramework("hedgehog.sbt.Framework"))
 
   /* Bintray { */

@@ -13,12 +13,34 @@ jobs:
         ports:
           - "8000:80"
           - "8443:443"
-    
+
+    strategy:
+      matrix:
+        scala:
+        - { version: "2.11.12", binary-version: "2.11" }
+        - { version: "2.12.10", binary-version: "2.12" }
+        - { version: "2.13.0", binary-version: "2.13" }
     steps:
     - uses: actions/checkout@v1
-    - name: Run sbt clean run
-      run: sbt clean run
+    - name: Cache Coursier
+      uses: actions/cache@v1
+      with:
+        path: ~/.cache/coursier
+        key: ${{ runner.os }}-coursier-${{ matrix.scala.binary-version }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-coursier-scala-${{ matrix.scala.binary-version }}-
+
+    - name: Cache Ivy
+      uses: actions/cache@v1
+      with:
+        path: ~/.ivy2/cache
+        key: ${{ runner.os }}-ivy-${{ matrix.scala.binary-version }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-ivy-scala-${{ matrix.scala.binary-version }}-
+
+#    - name: Run sbt clean run
+#      run: sbt clean run
     - name: Run test
       run: |
-        echo "Run] sbt clean test"
-        sbt clean test
+        echo 'Run] sbt "; ++ ${{ matrix.scala.version }}!; clean; test"'
+        sbt "; ++ ${{ matrix.scala.version }}!; clean; test"
